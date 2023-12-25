@@ -1,6 +1,6 @@
 {
   "name": "artemis-test",
-  "version": "1.0.7",
+  "version": "1.0.12",
   "description": "",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

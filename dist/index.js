@@ -1,12 +1,7 @@
 'use strict';
 
-var React = require('react');
-
-function Test() {
-    console.log("Test");
-    return (React.createElement("div", null,
-        React.createElement("h1", null, "Hello world")));
-}
+var nearApiJs = require('near-api-js');
+var react = require('react');
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -68,60 +63,110 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
-function useGithubProfile(profile) {
-    var _this = this;
-    var _a = React.useState(null), githubData = _a[0], setGithubData = _a[1];
-    React.useEffect(function () {
-        var fetchData = function () { return __awaiter(_this, void 0, void 0, function () {
-            var response, data;
+var myKeysStore = new nearApiJs.keyStores.BrowserLocalStorageKeyStore();
+var connectionConfig = {
+    networkId: 'testnet',
+    keyStore: myKeysStore,
+    nodeUrl: 'https://rpc.testnet.near.org',
+    walletUrl: 'https://wallet.testnet.near.org',
+    helperUrl: 'https://helper.testnet.near.org',
+    explorerUrl: 'https://nearblocks.io/',
+};
+
+// This hook will retrieve near account id
+function useNearWallet() {
+    var _a = react.useState(), wallet = _a[0], setWallet = _a[1];
+    var isLoading = true;
+    function onGet() {
+        return __awaiter(this, void 0, void 0, function () {
+            var connection, walletConnection;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, fetch("https://api.github.com/users/".concat(profile))];
+                    case 0: return [4 /*yield*/, nearApiJs.connect(connectionConfig)];
                     case 1:
-                        response = _a.sent();
-                        return [4 /*yield*/, response.json()];
-                    case 2:
-                        data = _a.sent();
-                        setGithubData({ github: data });
+                        connection = _a.sent();
+                        walletConnection = new nearApiJs.WalletConnection(connection, '');
+                        setWallet(walletConnection);
+                        isLoading = false;
                         return [2 /*return*/];
                 }
             });
-        }); };
-        fetchData();
-    }, []);
-    if (!githubData) {
-        return { github: null };
+        });
     }
-    return githubData;
+    react.useEffect(function () {
+        onGet();
+    }, []);
+    return {
+        wallet: wallet,
+        isLoading: isLoading
+    };
 }
 
-function useGithubProfiles() {
-    var _this = this;
-    var _a = React.useState(null), githubData = _a[0], setGithubData = _a[1];
-    React.useEffect(function () {
-        var fetchData = function () { return __awaiter(_this, void 0, void 0, function () {
-            var response, data;
+function onGetNearWalletConnection() {
+    return __awaiter(this, void 0, void 0, function () {
+        var connection, walletConnection;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, nearApiJs.connect(connectionConfig)];
+                case 1:
+                    connection = _a.sent();
+                    walletConnection = new nearApiJs.WalletConnection(connection, '');
+                    return [2 /*return*/, walletConnection];
+            }
+        });
+    });
+}
+
+// This hook will call signin function
+function useSignin(_a) {
+    var contractId = _a.contractId, failureUrl = _a.failureUrl, methodNames = _a.methodNames, successUrl = _a.successUrl;
+    function onSignin() {
+        return __awaiter(this, void 0, void 0, function () {
+            var wallet;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, fetch("https://api.github.com/users")];
+                    case 0: return [4 /*yield*/, onGetNearWalletConnection()];
                     case 1:
-                        response = _a.sent();
-                        return [4 /*yield*/, response.json()];
+                        wallet = _a.sent();
+                        return [4 /*yield*/, (wallet === null || wallet === void 0 ? void 0 : wallet.requestSignIn({
+                                contractId: contractId,
+                                failureUrl: failureUrl,
+                                methodNames: methodNames,
+                                successUrl: successUrl,
+                            }))];
                     case 2:
-                        data = _a.sent();
-                        setGithubData({ github: data });
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
-        }); };
-        fetchData();
-    }, []);
-    if (!githubData) {
-        return { github: null };
+        });
     }
-    return githubData;
+    return {
+        onSignin: onSignin
+    };
 }
 
-exports.Test = Test;
-exports.useGithubProfile = useGithubProfile;
-exports.useGithubProfiles = useGithubProfiles;
+// This hook will call signin function
+function useSignout() {
+    function onSignout() {
+        return __awaiter(this, void 0, void 0, function () {
+            var wallet;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, onGetNearWalletConnection()];
+                    case 1:
+                        wallet = _a.sent();
+                        wallet === null || wallet === void 0 ? void 0 : wallet.signOut();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }
+    return {
+        onSignout: onSignout
+    };
+}
+
+exports.useNearWallet = useNearWallet;
+exports.useSignin = useSignin;
+exports.useSignout = useSignout;

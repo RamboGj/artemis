@@ -1,29 +1,21 @@
-import { WalletConnection, connect } from 'near-api-js'
-import { useEffect, useState } from 'react'
-import { connectionConfig } from '../../utils/constants'
-import { useNearWalletProps } from '../../../types/accounts'
+// This hook will call signin function
 
-// This hook will retrieve near wallet object
+import { useSigninProps } from "@src/utils/accounts"
+import { onGetNearWalletConnection } from "@src/utils/functions"
 
-export function useSignin(): useNearWalletProps {
-  const [wallet, setWallet] = useState<WalletConnection>()
-
-  let isLoading: boolean = true
-
-  async function onGet() {
-    const connection = await connect(connectionConfig)
-    const walletConnection = new WalletConnection(connection, '')
-
-    setWallet(walletConnection)
-    isLoading = false
+export function useSignin({ contractId, failureUrl, methodNames, successUrl }: useSigninProps): { onSignin(): Promise<void> } {
+  async function onSignin() {
+    const wallet = await onGetNearWalletConnection()
+  
+    await wallet?.requestSignIn({
+      contractId,
+      failureUrl,
+      methodNames,
+      successUrl,
+    })
   }
 
-  useEffect(() => {
-    onGet()
-  }, [])
-
   return {
-    wallet,
-    isLoading
+    onSignin
   }
 }

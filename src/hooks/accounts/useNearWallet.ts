@@ -1,10 +1,11 @@
+import { useNearWalletProps } from '@src/utils/accounts'
+import { connectionConfig } from '@src/utils/constants'
 import { WalletConnection, connect } from 'near-api-js'
 import { useEffect, useState } from 'react'
-import { connectionConfig } from '../../utils/constants'
 
 // This hook will retrieve near account id
 
-export function useNearWallet(): unknown {
+export function useNearWallet(): useNearWalletProps {
   const [wallet, setWallet] = useState<WalletConnection>()
 
   let isLoading = true
