@@ -1,5 +1,5 @@
 import { WalletConnection, connect } from "near-api-js"
-import { connectionConfig } from "@src/utils/constants"
+import { connectionConfig } from "./constants"
 
 export async function onGetNearWalletConnection() {
   const connection = await connect(connectionConfig)

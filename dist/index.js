@@ -3,6 +3,16 @@
 var nearApiJs = require('near-api-js');
 var react = require('react');
 
+var myKeysStore = new nearApiJs.keyStores.BrowserLocalStorageKeyStore();
+var connectionConfig = {
+    networkId: 'testnet',
+    keyStore: myKeysStore,
+    nodeUrl: 'https://rpc.testnet.near.org',
+    walletUrl: 'https://wallet.testnet.near.org',
+    helperUrl: 'https://helper.testnet.near.org',
+    explorerUrl: 'https://nearblocks.io/',
+};
+
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -63,20 +73,10 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
-var myKeysStore = new nearApiJs.keyStores.BrowserLocalStorageKeyStore();
-var connectionConfig = {
-    networkId: 'testnet',
-    keyStore: myKeysStore,
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://nearblocks.io/',
-};
-
 // This hook will retrieve near account id
 function useNearWallet() {
     var _a = react.useState(), wallet = _a[0], setWallet = _a[1];
-    var isLoading = true;
+    var _b = react.useState(true), isLoading = _b[0], setIsLoading = _b[1];
     function onGet() {
         return __awaiter(this, void 0, void 0, function () {
             var connection, walletConnection;
@@ -87,7 +87,7 @@ function useNearWallet() {
                         connection = _a.sent();
                         walletConnection = new nearApiJs.WalletConnection(connection, '');
                         setWallet(walletConnection);
-                        isLoading = false;
+                        setIsLoading(false);
                         return [2 /*return*/];
                 }
             });
@@ -167,6 +167,7 @@ function useSignout() {
     };
 }
 
+exports.connectionConfig = connectionConfig;
 exports.useNearWallet = useNearWallet;
 exports.useSignin = useSignin;
 exports.useSignout = useSignout;

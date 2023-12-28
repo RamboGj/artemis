@@ -11,10 +11,10 @@
     "declaration": true,
     "declarationMap": true,
     "strict": true,
-    "paths": {
-      "@src/*": ["./src/*"]
+      "paths": {
+        "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx",  "src/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

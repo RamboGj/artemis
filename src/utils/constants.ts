@@ -10,3 +10,6 @@ export const connectionConfig = {
   helperUrl: 'https://helper.testnet.near.org',
   explorerUrl: 'https://nearblocks.io/',
 }
+
+export const NEAR_BLOCK_EXPLORER_BASE_URL =
+  'https://api-testnet.nearblocks.io/v1'
