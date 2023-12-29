@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { useAccount } from '../hooks/explorer/account/useAccount'
+import { useAccount } from '../hooks/explorer/useAccount'
 import { NEAR_BLOCK_EXPLORER_BASE_URL } from '..'
 
 // TO-DO

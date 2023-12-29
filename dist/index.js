@@ -143,7 +143,7 @@ function useSignin(_a) {
         });
     }
     return {
-        onSignin: onSignin
+        onSignin: onSignin,
     };
 }
 
@@ -169,7 +169,8 @@ function useSignout() {
 }
 
 function useAccount(accountId) {
-    var _a = react.useState(null), account = _a[0], setAccount = _a[1];
+    var _a = react.useState(true), isLoading = _a[0], setIsLoading = _a[1];
+    var _b = react.useState(null), account = _b[0], setAccount = _b[1];
     function onGetAccount() {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, err_1;
@@ -183,10 +184,13 @@ function useAccount(accountId) {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
+                        console.log('data', data);
                         setAccount(data.account[0]);
+                        setIsLoading(false);
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
+                        setIsLoading(false);
                         return [2 /*return*/, err_1];
                     case 4: return [2 /*return*/];
                 }
@@ -196,11 +200,12 @@ function useAccount(accountId) {
     react.useEffect(function () {
         onGetAccount();
     }, []);
-    return { account: account };
+    return { account: account, isLoading: isLoading };
 }
 
 function useInventory(accountId) {
-    var _a = react.useState(null), inventory = _a[0], setInvetory = _a[1];
+    var _a = react.useState(true), isLoading = _a[0], setIsLoading = _a[1];
+    var _b = react.useState(null), inventory = _b[0], setInvetory = _b[1];
     function onGetAccountInventory() {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, err_1;
@@ -215,9 +220,11 @@ function useInventory(accountId) {
                     case 2:
                         data = _a.sent();
                         setInvetory(data.inventory);
+                        setIsLoading(false);
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
+                        setIsLoading(false);
                         return [2 /*return*/, err_1];
                     case 4: return [2 /*return*/];
                 }
@@ -227,7 +234,10 @@ function useInventory(accountId) {
     react.useEffect(function () {
         onGetAccountInventory();
     }, []);
-    return inventory;
+    return {
+        isLoading: isLoading,
+        inventory: inventory,
+    };
 }
 
 exports.NEAR_BLOCK_EXPLORER_BASE_URL = NEAR_BLOCK_EXPLORER_BASE_URL;

@@ -123,8 +123,7 @@ declare module 'artemis-sdk' {
     failureUrl,
     methodNames,
     successUrl,
-  }: useSendProps): { onSend: () => void }
-  /**
+  }: useSendProps): { onSend: () => void } /**
    * Hook that returns the account's inventory state and a loading state while the call is being maden.
    *
    *
@@ -146,5 +145,44 @@ declare module 'artemis-sdk' {
    * @param methodNames - The methods from the Near Contract. (optional)
    *
    * @returns The send function.
+   */
+
+  export function parseYocto(nearAmount: string): string
+  /**
+   * Utility function that converts near to yocto near.
+   *
+   *
+   * @example
+   * ```tsx
+   * import { parseYocto } from "artemis-sdk"
+   *
+   * export function App() {
+   *  const amountInYocto = parseYocto("1")
+   * }
+   *
+   * ```
+   *
+   * @param nearAmount - The NEAR amount.
+   *
+   * @returns The YoctoNEAR amount.
+   */
+
+  export function parseNear(yoctoNearAmount: string): string
+  /**
+   * Utility function that converts YoctoNEAR to NEAR.
+   *
+   *
+   * @example
+   * ```tsx
+   * import { parseNear } from "artemis-sdk"
+   *
+   * export function App() {
+   *  const amountInNear = parseNear("1000000000000000000000000")
+   * }
+   *
+   * ```
+   * @param yoctoNearAmount - The YoctoNEAR amount.
+   *
+   * @returns The NEAR function.
    */
 }

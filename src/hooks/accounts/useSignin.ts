@@ -1,5 +1,3 @@
-// This hook will call signin function
-
 import { useSigninProps } from '@/@types/accounts'
 import { onGetNearWalletConnection } from '@/utils/functions'
 
