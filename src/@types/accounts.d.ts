@@ -12,6 +12,11 @@ export interface useSigninProps {
   successUrl?: string
 }
 
+export interface useSendProps extends useSigninProps {
+  receiverAccountId: string
+  amountYoctoNear: string
+}
+
 export interface FTSMetaProps {
   name: string
   symbol: string

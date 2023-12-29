@@ -1,4 +1,4 @@
-import { Contract, keyStores, connect, WalletConnection } from 'near-api-js'
+import { keyStores } from 'near-api-js'
 
 const myKeysStore = new keyStores.BrowserLocalStorageKeyStore()
 

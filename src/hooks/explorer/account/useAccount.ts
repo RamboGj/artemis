@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react'
 
 export function useAccount(accountId: string): {
   account: AccountProps | null
+  isLoading: boolean
 } {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [account, setAccount] = useState<AccountProps | null>(null)
 
   async function onGetAccount() {
@@ -12,10 +14,15 @@ export function useAccount(accountId: string): {
       const response = await fetch(
         `${NEAR_BLOCK_EXPLORER_BASE_URL}/account/${accountId}`,
       )
+
       const data = await response.json()
 
+      console.log('data', data)
+
       setAccount(data.account[0])
+      setIsLoading(false)
     } catch (err) {
+      setIsLoading(false)
       return err
     }
   }
@@ -24,5 +31,5 @@ export function useAccount(accountId: string): {
     onGetAccount()
   }, [])
 
-  return { account }
+  return { account, isLoading }
 }

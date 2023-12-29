@@ -2,7 +2,11 @@ import { InventoryProps } from '@/@types/accounts'
 import { NEAR_BLOCK_EXPLORER_BASE_URL } from '@/utils/constants'
 import { useEffect, useState } from 'react'
 
-export function useInventory(accountId: string): InventoryProps | null {
+export function useInventory(accountId: string): {
+  isLoading: boolean
+  inventory: InventoryProps | null
+} {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [inventory, setInvetory] = useState<InventoryProps | null>(null)
 
   async function onGetAccountInventory() {
@@ -13,7 +17,9 @@ export function useInventory(accountId: string): InventoryProps | null {
       const data = await response.json()
 
       setInvetory(data.inventory)
+      setIsLoading(false)
     } catch (err) {
+      setIsLoading(false)
       return err
     }
   }
@@ -22,5 +28,8 @@ export function useInventory(accountId: string): InventoryProps | null {
     onGetAccountInventory()
   }, [])
 
-  return inventory
+  return {
+    isLoading,
+    inventory,
+  }
 }
