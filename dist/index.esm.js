@@ -10,6 +10,7 @@ var connectionConfig = {
     helperUrl: 'https://helper.testnet.near.org',
     explorerUrl: 'https://nearblocks.io/',
 };
+var NEAR_BLOCK_EXPLORER_BASE_URL = 'https://api-testnet.nearblocks.io/v1';
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -71,7 +72,7 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
-// This hook will retrieve near account id
+// This hook will retrieve near wallet
 function useNearWallet() {
     var _a = useState(), wallet = _a[0], setWallet = _a[1];
     var _b = useState(true), isLoading = _b[0], setIsLoading = _b[1];
@@ -96,7 +97,7 @@ function useNearWallet() {
     }, []);
     return {
         wallet: wallet,
-        isLoading: isLoading
+        isLoading: isLoading,
     };
 }
 
@@ -165,4 +166,66 @@ function useSignout() {
     };
 }
 
-export { connectionConfig, useNearWallet, useSignin, useSignout };
+function useAccount(accountId) {
+    var _a = useState(null), account = _a[0], setAccount = _a[1];
+    function onGetAccount() {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, data, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, fetch("".concat(NEAR_BLOCK_EXPLORER_BASE_URL, "/account/").concat(accountId))];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        data = _a.sent();
+                        setAccount(data.account[0]);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_1 = _a.sent();
+                        return [2 /*return*/, err_1];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    }
+    useEffect(function () {
+        onGetAccount();
+    }, []);
+    return { account: account };
+}
+
+function useInventory(accountId) {
+    var _a = useState(null), inventory = _a[0], setInvetory = _a[1];
+    function onGetAccountInventory() {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, data, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, fetch("".concat(NEAR_BLOCK_EXPLORER_BASE_URL, "/account/").concat(accountId, "/inventory"))];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        data = _a.sent();
+                        setInvetory(data.inventory);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_1 = _a.sent();
+                        return [2 /*return*/, err_1];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    }
+    useEffect(function () {
+        onGetAccountInventory();
+    }, []);
+    return inventory;
+}
+
+export { NEAR_BLOCK_EXPLORER_BASE_URL, connectionConfig, useAccount, useInventory, useNearWallet, useSignin, useSignout };

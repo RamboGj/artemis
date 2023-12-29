@@ -1,4 +1,8 @@
 export * from './utils/constants'
 
-export * from './hooks/accounts/index'
-export * from './hooks/explorer/index'
+export * from './hooks/accounts/useNearWallet'
+export * from './hooks/accounts/useSignin'
+export * from './hooks/accounts/useSignout'
+
+export * from './hooks/explorer/account/useAccount'
+export * from './hooks/explorer/account/useInventory'

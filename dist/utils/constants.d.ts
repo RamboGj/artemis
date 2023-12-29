@@ -7,4 +7,5 @@ export declare const connectionConfig: {
     helperUrl: string;
     explorerUrl: string;
 };
+export declare const NEAR_BLOCK_EXPLORER_BASE_URL = "https://api-testnet.nearblocks.io/v1";
 //# sourceMappingURL=constants.d.ts.map
