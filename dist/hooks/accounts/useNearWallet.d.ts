@@ -1,3 +1,3 @@
-import { useZustandNearWalletProps } from '@/zustand/internalTypes';
-export declare function useNearWallet(): Omit<useZustandNearWalletProps, 'saveWallet'>;
+import type { useNearWalletType } from '@/@types/accounts';
+export declare function useNearWallet(): useNearWalletType;
 //# sourceMappingURL=useNearWallet.d.ts.map

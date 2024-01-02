@@ -1,1 +1,1 @@
-{"version":3,"file":"useNearWallet.d.ts","sourceRoot":"","sources":["../../../src/hooks/accounts/useNearWallet.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,yBAAyB,EAAE,MAAM,yBAAyB,CAAA;AAEnE,wBAAgB,aAAa,IAAI,IAAI,CAAC,yBAAyB,EAAE,YAAY,CAAC,CAiB7E"}
+{"version":3,"file":"useNearWallet.d.ts","sourceRoot":"","sources":["../../../src/hooks/accounts/useNearWallet.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,mBAAmB,CAAA;AAM1D,wBAAgB,aAAa,IAAI,iBAAiB,CAiBjD"}

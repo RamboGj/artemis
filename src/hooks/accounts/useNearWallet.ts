@@ -1,10 +1,10 @@
+import type { useNearWalletType } from '@/@types/accounts'
 import { WalletConnection, connect } from 'near-api-js'
 import { useEffect } from 'react'
 import { connectionConfig } from '@/utils/constants'
 import { useZustandNearWallet } from '@/zustand/hooks'
-import { useZustandNearWalletProps } from '@/zustand/internalTypes'
 
-export function useNearWallet(): Omit<useZustandNearWalletProps, 'saveWallet'> {
+export function useNearWallet(): useNearWalletType {
   const { isLoading, wallet, saveWallet } = useZustandNearWallet()
 
   async function onGet() {

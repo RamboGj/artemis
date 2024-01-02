@@ -1,5 +1,5 @@
 import { keyStores, WalletConnection, connect, utils } from 'near-api-js';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { create } from 'zustand';
 
 var myKeysStore = new keyStores.BrowserLocalStorageKeyStore();
@@ -79,6 +79,22 @@ var useZustandNearWallet = create(function (set) { return ({
     saveWallet: function (wallet) {
         return set(function () { return ({ isLoading: false, wallet: wallet }); });
     },
+}); });
+var useZustandAccount = create(function (set) { return ({
+    account: null,
+    isLoading: true,
+    saveAccount: function (account) {
+        return set(function () { return ({ account: account, isLoading: false }); });
+    },
+    saveAccountError: function () { return set(function () { return ({ isLoading: false }); }); },
+}); });
+var useZustandInventory = create(function (set) { return ({
+    inventory: null,
+    isLoading: true,
+    saveInventory: function (inventory) {
+        return set(function () { return ({ inventory: inventory, isLoading: false }); });
+    },
+    saveInventoryError: function () { return set(function () { return ({ isLoading: false }); }); },
 }); });
 
 function useNearWallet() {
@@ -171,8 +187,7 @@ function useSignout() {
 }
 
 function useAccount(accountId) {
-    var _a = useState(true), isLoading = _a[0], setIsLoading = _a[1];
-    var _b = useState(null), account = _b[0], setAccount = _b[1];
+    var _a = useZustandAccount(), account = _a.account, isLoading = _a.isLoading, saveAccount = _a.saveAccount, saveAccountError = _a.saveAccountError;
     function onGetAccount() {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, err_1;
@@ -186,13 +201,11 @@ function useAccount(accountId) {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
-                        console.log('data', data);
-                        setAccount(data.account[0]);
-                        setIsLoading(false);
+                        saveAccount(data.account[0]);
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
-                        setIsLoading(false);
+                        saveAccountError();
                         return [2 /*return*/, err_1];
                     case 4: return [2 /*return*/];
                 }
@@ -206,8 +219,7 @@ function useAccount(accountId) {
 }
 
 function useInventory(accountId) {
-    var _a = useState(true), isLoading = _a[0], setIsLoading = _a[1];
-    var _b = useState(null), inventory = _b[0], setInvetory = _b[1];
+    var _a = useZustandInventory(), inventory = _a.inventory, isLoading = _a.isLoading, saveInventory = _a.saveInventory, saveInventoryError = _a.saveInventoryError;
     function onGetAccountInventory() {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, err_1;
@@ -221,12 +233,11 @@ function useInventory(accountId) {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
-                        setInvetory(data.inventory);
-                        setIsLoading(false);
+                        saveInventory(data.inventory);
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
-                        setIsLoading(false);
+                        saveInventoryError();
                         return [2 /*return*/, err_1];
                     case 4: return [2 /*return*/];
                 }

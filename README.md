@@ -1,3 +1,6 @@
+Sure, I'll provide additional content for each React hook. Let's update the README.md file with details about the `useNearWallet` hook.
+
+```markdown
 # Artemis-SDK
 
 Artemis-SDK is a React library built with TypeScript, designed to simplify the integration of NEAR Blockchain functionality into React applications. It abstracts the usage of the NEAR-API-JS library and provides easy access to public APIs from the NEAR block explorer.
@@ -16,12 +19,12 @@ yarn add artemis-sdk
 
 ## Usage
 
-Artemis-SDK makes it straightforward to interact with the NEAR Blockchain in your React applications. Here's a quick example usign Next.js:
+Artemis-SDK makes it straightforward to interact with the NEAR Blockchain in your React applications. Here's a quick example using Next.js:
 
 ```tsx
 "use client"
 
-import { useNearWallet, useSignin } from "artemis-sdk"
+import { useNearWallet } from "artemis-sdk"
 
 export default function Home() {
   const { isLoading, wallet } = useNearWallet()
@@ -36,9 +39,7 @@ export default function Home() {
 
   return (
     <div className="w-full h-screen bg-black text-white">
-      <pre>
-        {JSON.stringify(wallet, null, 2)}
-      </pre>
+      <pre>{JSON.stringify(wallet, null, 2)}</pre>
     </div>
   )
 }
@@ -50,6 +51,49 @@ export default function Home() {
 - Provides easy access to public APIs from the NEAR block explorer.
 - Written in TypeScript for enhanced development experience.
 
+## React Hooks
+
+### `useNearWallet`
+
+The `useNearWallet` hook initializes a connection to the NEAR blockchain and provides access to the connected wallet instance.
+
+#### Usage
+
+```tsx
+const { isLoading, wallet } = useNearWallet();
+```
+
+#### API
+
+- `wallet`: An instance of the NEAR WalletConnection.
+- `isLoading`: A boolean indicating whether the wallet is still loading.
+
+### `useSignin`
+
+The `useSignin` hook initializes a connection to the NEAR blockchain and provides access to the connected wallet instance.
+
+#### Usage
+
+```tsx
+const { onSignin } = useSignin({
+  contractId,
+  failureUrl,
+  methodNames,
+  successUrl,
+});
+```
+
+#### API
+
+- `onSignin`: A function that trigger a sign in event and redirect you to near wallet platform.
+- `contractId`: The Near Contract ID you wanna interact with.
+- `failureUrl`: The URL user will be redirect if the sign in goes wrong. (optional)
+- `successUrl`: The URL user will be redirect if the sign in works correctly. (optional)
+- `methodNames`: The methods from the Near Contract. (optional - By default you will get access to all methods)
+
+<!-- Add more hooks information here . -->
+
 ## Contributing
 
 We welcome contributions! Feel free to open issues or pull requests. For major changes, please open an issue first to discuss what you would like to change on [Github](https://github.com/RamboGj/artemis).
+```

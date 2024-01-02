@@ -1,13 +1,13 @@
 import type {
-  useNearWalletProps,
+  useNearWalletType,
   useSigninProps,
-  InventoryProps,
   useSendProps,
+  useAccountType,
+  useInventoryType,
 } from '../src/@types/accounts'
-import type { AccountProps } from '../src/@types/explorer'
 
 declare module 'artemis-sdk' {
-  export function useNearWallet(): useNearWalletProps
+  export function useNearWallet(): useNearWalletType
   /**
    * Hook that returns the near connected wallet state and a loading state while fetching it.
    *
@@ -70,10 +70,7 @@ declare module 'artemis-sdk' {
    * @returns The sign out function.
    */
 
-  export function useAccount(accountId: string): {
-    isLoading: boolean
-    account: AccountProps | null
-  }
+  export function useAccount(accountId: string): useAccountType
   /**
    * Hook that returns the account state and a loading state while the call is being maden.
    *
@@ -93,10 +90,7 @@ declare module 'artemis-sdk' {
    * @returns The account state and a loading state while the call is being maden.
    */
 
-  export function useInventory(accountId: string): {
-    isLoading: boolean
-    inventory: InventoryProps | null
-  }
+  export function useInventory(accountId: string): useInventoryType
   /**
    * Hook that returns the account's inventory state and a loading state while the call is being maden.
    *

@@ -1,3 +1,22 @@
+import type {
+  useZustandInventoryProps,
+  useZustandNearWalletProps,
+  useZustandAccountProps,
+} from '@/zustand/internalTypes'
+
+export type useNearWalletType = Omit<useZustandNearWalletProps, 'saveWallet'>
+
+export type useAccountType = Omit<
+  useZustandAccountProps,
+  'saveAccount' | 'saveAccountError'
+>
+
+export type useInventoryType = Omit<
+  useZustandInventoryProps,
+  'saveInventory',
+  'saveInventoryError'
+>
+
 export interface useSigninProps {
   contractId: string
   failureUrl?: string
