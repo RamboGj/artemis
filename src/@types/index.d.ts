@@ -4,7 +4,7 @@ import type {
   useSendProps,
   useAccountType,
   useInventoryType,
-} from '../src/@types/accounts'
+} from './accounts'
 
 declare module 'artemis-sdk' {
   export function useNearWallet(): useNearWalletType
