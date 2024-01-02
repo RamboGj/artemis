@@ -1,5 +1,6 @@
-import { keyStores, WalletConnection, connect } from 'near-api-js';
-import { useState, useEffect } from 'react';
+import { keyStores, WalletConnection, connect, utils } from 'near-api-js';
+import { useEffect, useState } from 'react';
+import { create } from 'zustand';
 
 var myKeysStore = new keyStores.BrowserLocalStorageKeyStore();
 var connectionConfig = {
@@ -72,10 +73,16 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
 };
 
-// This hook will retrieve near wallet
+var useZustandNearWallet = create(function (set) { return ({
+    isLoading: true,
+    wallet: undefined,
+    saveWallet: function (wallet) {
+        return set(function () { return ({ isLoading: false, wallet: wallet }); });
+    },
+}); });
+
 function useNearWallet() {
-    var _a = useState(), wallet = _a[0], setWallet = _a[1];
-    var _b = useState(true), isLoading = _b[0], setIsLoading = _b[1];
+    var _a = useZustandNearWallet(), isLoading = _a.isLoading, wallet = _a.wallet, saveWallet = _a.saveWallet;
     function onGet() {
         return __awaiter(this, void 0, void 0, function () {
             var connection, walletConnection;
@@ -85,8 +92,7 @@ function useNearWallet() {
                     case 1:
                         connection = _a.sent();
                         walletConnection = new WalletConnection(connection, '');
-                        setWallet(walletConnection);
-                        setIsLoading(false);
+                        saveWallet(walletConnection);
                         return [2 /*return*/];
                 }
             });
@@ -116,7 +122,6 @@ function onGetNearWalletConnection() {
     });
 }
 
-// This hook will call signin function
 function useSignin(_a) {
     var contractId = _a.contractId, failureUrl = _a.failureUrl, methodNames = _a.methodNames, successUrl = _a.successUrl;
     function onSignin() {
@@ -145,7 +150,6 @@ function useSignin(_a) {
     };
 }
 
-// This hook will call signin function
 function useSignout() {
     function onSignout() {
         return __awaiter(this, void 0, void 0, function () {
@@ -162,7 +166,7 @@ function useSignout() {
         });
     }
     return {
-        onSignout: onSignout
+        onSignout: onSignout,
     };
 }
 
@@ -238,4 +242,13 @@ function useInventory(accountId) {
     };
 }
 
-export { NEAR_BLOCK_EXPLORER_BASE_URL, connectionConfig, useAccount, useInventory, useNearWallet, useSignin, useSignout };
+function parseYocto(nearAmount) {
+    var amountInYocto = utils.format.parseNearAmount(nearAmount);
+    return amountInYocto || '';
+}
+function parseNear(yoctoNearAmount) {
+    var amountInNEAR = utils.format.formatNearAmount(yoctoNearAmount);
+    return amountInNEAR || '';
+}
+
+export { NEAR_BLOCK_EXPLORER_BASE_URL, connectionConfig, parseNear, parseYocto, useAccount, useInventory, useNearWallet, useSignin, useSignout };

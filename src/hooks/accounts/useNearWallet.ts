@@ -1,18 +1,16 @@
 import { WalletConnection, connect } from 'near-api-js'
-import { useEffect, useState } from 'react'
-import { useNearWalletProps } from '../../@types/accounts'
+import { useEffect } from 'react'
 import { connectionConfig } from '@/utils/constants'
+import { useZustandNearWallet } from '@/zustand/hooks'
+import { useZustandNearWalletProps } from '@/zustand/internalTypes'
 
-export function useNearWallet(): useNearWalletProps {
-  const [wallet, setWallet] = useState<WalletConnection>()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+export function useNearWallet(): Omit<useZustandNearWalletProps, 'saveWallet'> {
+  const { isLoading, wallet, saveWallet } = useZustandNearWallet()
 
   async function onGet() {
     const connection = await connect(connectionConfig)
     const walletConnection = new WalletConnection(connection, '')
-
-    setWallet(walletConnection)
-    setIsLoading(false)
+    saveWallet(walletConnection)
   }
 
   useEffect(() => {
