@@ -1,4 +1,3 @@
-```markdown
 # Artemis-SDK
 
 Artemis-SDK is a React library built with TypeScript, designed to simplify the integration of NEAR Blockchain functionality into React applications. It abstracts the usage of the NEAR-API-JS library and provides easy access to public APIs from the NEAR block explorer.
@@ -94,4 +93,3 @@ const { onSignin } = useSignin({
 ## Contributing
 
 We welcome contributions! Feel free to open issues or pull requests. For major changes, please open an issue first to discuss what you would like to change on [Github](https://github.com/RamboGj/artemis).
-```
