@@ -28,14 +28,14 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-screen bg-black text-white">
-        <h1 className="text-[5rem]">LOADING...</h1>
+      <div>
+        <span>LOADING...</span>
       </div>
     )
   }
 
   return (
-    <div className="w-full h-screen bg-black text-white">
+    <div>
       <pre>{JSON.stringify(wallet, null, 2)}</pre>
     </div>
   )
@@ -96,6 +96,8 @@ const { onSignin } = useSignin({
 <!-- To add a separator line -->
 ##
 <!-- To add a separator line -->
+
+## Utils Functions
 
 ## Contributing
 
