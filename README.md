@@ -1,5 +1,3 @@
-Sure, I'll provide additional content for each React hook. Let's update the README.md file with details about the `useNearWallet` hook.
-
 ```markdown
 # Artemis-SDK
 
