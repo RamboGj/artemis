@@ -71,7 +71,7 @@ const { isLoading, wallet } = useNearWallet();
 
 ### `useSignin`
 
-The `useSignin` hook initializes a connection to the NEAR blockchain and provides access to the connected wallet instance.
+The `useSignin` hook returns function that trigger a sign in event and redirect you to near wallet platform.
 
 #### Usage
 
