@@ -1,6 +1,6 @@
 # Artemis-SDK
 
-Artemis-SDK is a React library built with TypeScript, designed to simplify the integration of NEAR Blockchain functionality into React applications. It abstracts the usage of the NEAR-API-JS library and provides easy access to public APIs from the NEAR block explorer.
+Artemis SDK is a React library built with TypeScript, designed to simplify the integration of NEAR Blockchain functionality into React applications. It abstracts the usage of the [NEAR-API-JS](https://docs.near.org/tools/near-api-js/quick-reference#what-is-near-api-js) library and provides easy access to [public APIs](https://api.nearblocks.io/api-docs/) from the NEAR block explorer.
 
 ## Installation
 
@@ -65,6 +65,10 @@ const { isLoading, wallet } = useNearWallet();
 - `wallet`: An instance of the NEAR WalletConnection.
 - `isLoading`: A boolean indicating whether the wallet is still loading.
 
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
 ### `useSignin`
 
 The `useSignin` hook initializes a connection to the NEAR blockchain and provides access to the connected wallet instance.
@@ -89,6 +93,9 @@ const { onSignin } = useSignin({
 - `methodNames`: The methods from the Near Contract. (optional - By default you will get access to all methods)
 
 <!-- Add more hooks information here . -->
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
 
 ## Contributing
 
