@@ -1,1 +1,0 @@
-{"version":3,"file":"useSignin.d.ts","sourceRoot":"","sources":["../../../src/hooks/accounts/useSignin.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,mBAAmB,CAAA;AAGlD,wBAAgB,SAAS,CAAC,EACxB,UAAU,EACV,UAAU,EACV,WAAW,EACX,UAAU,GACX,EAAE,cAAc,GAAG;IAAE,QAAQ,IAAI,OAAO,CAAC,IAAI,CAAC,CAAA;CAAE,CAehD"}
