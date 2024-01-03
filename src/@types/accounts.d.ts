@@ -4,17 +4,19 @@ import type {
   useZustandAccountProps,
 } from '@/zustand/internalTypes'
 
-export type useNearWalletType = Omit<useZustandNearWalletProps, 'saveWallet'>
-
-export type useAccountType = Omit<
-  useZustandAccountProps,
-  'saveAccount' | 'saveAccountError'
+export type useNearWalletType = Pick<
+  useZustandNearWalletProps,
+  'wallet' | 'error' | 'isLoading'
 >
 
-export type useInventoryType = Omit<
+export type useAccountType = Pick<
+  useZustandAccountProps,
+  'account' | 'error' | 'isLoading'
+>
+
+export type useInventoryType = Pick<
   useZustandInventoryProps,
-  'saveInventory',
-  'saveInventoryError'
+  'inventory' | 'error' | 'isLoading'
 >
 
 export interface useSigninProps {

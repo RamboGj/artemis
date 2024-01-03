@@ -1,41 +1,52 @@
-import { NEAR_BLOCK_EXPLORER_BASE_URL } from '@/utils/constants'
+import type { useZustandContractViewProps } from '@/zustand/internalTypes'
+import { Contract } from 'near-api-js'
 import { useNearWallet } from '../accounts/useNearWallet'
+import { verifyIfContractMethodExists } from '@/middlewares/verifyIfContractMethodExists'
 import { useEffect } from 'react'
-import { decode } from '@webassemblyjs/wasm-parser'
-import { parseContract } from '@/utils/decoder'
+import { useZustandContractView } from '@/zustand/index'
 
-export function useContractRead(contractId: string) {
+export function useContractView(
+  contractId: string,
+  methodName: string,
+): Pick<useZustandContractViewProps, 'contract' | 'isLoading'> {
   const { wallet, isLoading } = useNearWallet()
+  const {
+    contract,
+    isLoading: contractLoading,
+    saveContractViewInstance,
+    saveContractViewInstanceError,
+  } = useZustandContractView()
 
-  async function onFetchContract() {
+  async function onCreateViewInstance() {
     if (typeof wallet === 'undefined' || isLoading) return
 
+    const isValidMethod = await verifyIfContractMethodExists(
+      contractId,
+      methodName,
+    )
+
+    if (!isValidMethod)
+      return saveContractViewInstanceError('Method not found.')
+
     try {
-      const response = await fetch(
-        `${NEAR_BLOCK_EXPLORER_BASE_URL}/account/${contractId}/contract`,
-      )
+      const contract = new Contract(wallet.account(), contractId, {
+        viewMethods: [methodName],
+        changeMethods: [],
+        useLocalViewExecution: false,
+      }) as any
 
-      console.log('response', response)
-
-      const data = await response.json()
-
-      console.log('data', data)
-
-      const base64EncodedString = data.contract[0].code_base64
-      console.log('base64EncodedString', base64EncodedString)
-
-      const contractMetadata = parseContract(base64EncodedString)
-
-      console.log('decodedStuff', contractMetadata)
+      saveContractViewInstance(contract)
     } catch (err) {
-      console.log('err', err)
-      return err
+      saveContractViewInstanceError(String(err))
     }
   }
 
   useEffect(() => {
-    onFetchContract()
+    onCreateViewInstance()
   }, [wallet])
 
-  return null
+  return {
+    contract,
+    isLoading: contractLoading,
+  }
 }

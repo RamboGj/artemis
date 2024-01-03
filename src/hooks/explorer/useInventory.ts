@@ -1,10 +1,10 @@
 import type { useInventoryType } from '@/@types/accounts'
 import { NEAR_BLOCK_EXPLORER_BASE_URL } from '@/utils/constants'
-import { useZustandInventory } from '@/zustand/hooks'
+import { useZustandInventory } from '@/zustand/index'
 import { useEffect } from 'react'
 
 export function useInventory(accountId: string): useInventoryType {
-  const { inventory, isLoading, saveInventory, saveInventoryError } =
+  const { inventory, isLoading, saveInventory, saveInventoryError, error } =
     useZustandInventory()
 
   async function onGetAccountInventory() {
@@ -16,8 +16,7 @@ export function useInventory(accountId: string): useInventoryType {
 
       saveInventory(data.inventory)
     } catch (err) {
-      saveInventoryError()
-      return err
+      saveInventoryError(String(err))
     }
   }
 
@@ -28,5 +27,6 @@ export function useInventory(accountId: string): useInventoryType {
   return {
     isLoading,
     inventory,
+    error,
   }
 }

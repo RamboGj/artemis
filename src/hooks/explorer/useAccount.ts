@@ -1,10 +1,10 @@
 import type { useAccountType } from '@/@types/accounts'
 import { NEAR_BLOCK_EXPLORER_BASE_URL } from '@/utils/constants'
-import { useZustandAccount } from '@/zustand/hooks'
+import { useZustandAccount } from '@/zustand/index'
 import { useEffect } from 'react'
 
 export function useAccount(accountId: string): useAccountType {
-  const { account, isLoading, saveAccount, saveAccountError } =
+  const { account, isLoading, saveAccount, saveAccountError, error } =
     useZustandAccount()
 
   async function onGetAccount() {
@@ -17,8 +17,7 @@ export function useAccount(accountId: string): useAccountType {
 
       saveAccount(data.account[0])
     } catch (err) {
-      saveAccountError()
-      return err
+      saveAccountError(String(err))
     }
   }
 
@@ -26,5 +25,5 @@ export function useAccount(accountId: string): useAccountType {
     onGetAccount()
   }, [])
 
-  return { account, isLoading }
+  return { account, isLoading, error }
 }
