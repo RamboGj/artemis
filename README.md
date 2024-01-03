@@ -92,12 +92,114 @@ const { onSignin } = useSignin({
 - `successUrl`: The URL user will be redirect if the sign in works correctly. (optional)
 - `methodNames`: The methods from the Near Contract. (optional - By default you will get access to all methods)
 
-<!-- Add more hooks information here . -->
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
+### `useSignout`
+
+The `useSignout` hook returns function that sign out your connected wallet.
+
+#### Usage
+
+```tsx
+const { onSignout } = useSignout();
+```
+
+#### API
+
+- `onSignout`: A function that sign out your connected wallet.
+
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
+### `useSend` - UNDER TESTING
+
+The `useSend` hook returns function that send near from your connected wallet to another specified near account.
+
+#### Building...
+
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
+### `useInventory`
+
+The `useInventory` hook returns all FTs and NFTs data from a near wallet.
+
+#### Usage
+
+```tsx
+const { inventory, isLoading } = useInventory("accountId.testnet");
+```
+
+#### API
+
+- `inventory`: All wallet FTs and NFTs data.
+- `isLoading`: A boolean indicating whether the inventory is still loading.
+
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
+### `useAccount`
+
+The `useAccount` hook returns all data from a near blockchain account.
+
+#### Usage
+
+```tsx
+const { account, isLoading } = useAccount("accountId.testnet");
+```
+
+#### API
+
+- `account`: An account data object.
+- `isLoading`: A boolean indicating whether the account is still loading.
+
 <!-- To add a separator line -->
 ##
 <!-- To add a separator line -->
 
 ## Utils Functions
+
+### `parseYocto`
+
+The `parseYocto` converts NEAR Token amount to YoctoNEAR and return its value.
+
+#### Usage
+
+```tsx
+const yoctoNearAmount = parseYocto("1");
+```
+
+#### API
+
+- `yoctoNearAmount`: Amount in YoctoNEAR.
+
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
+### `parseNear`
+
+The `parseNear` converts YoctoNEAR Token amount to NEAR and return its value.
+
+#### Usage
+
+```tsx
+const nearAmount = parseNear("1000000000000000000000000");
+```
+
+#### API
+
+- `nearAmount`: Amount in NEAR.
+
+<!-- To add a separator line -->
+##
+<!-- To add a separator line -->
+
 
 ## Contributing
 
