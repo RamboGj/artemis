@@ -71,7 +71,7 @@ const { isLoading, wallet } = useNearWallet();
 
 ### `useSignin`
 
-The `useSignin` hook returns function that trigger a sign in event and redirect you to near wallet platform.
+The `useSignin` hook returns a function that trigger a sign in event and redirect you to near wallet platform.
 
 #### Usage
 
@@ -98,7 +98,7 @@ const { onSignin } = useSignin({
 
 ### `useSignout`
 
-The `useSignout` hook returns function that sign out your connected wallet.
+The `useSignout` hook returns a function that sign out your connected wallet.
 
 #### Usage
 
@@ -116,7 +116,7 @@ const { onSignout } = useSignout();
 
 ### `useSend` - UNDER TESTING
 
-The `useSend` hook returns function that send near from your connected wallet to another specified near account.
+The `useSend` hook returns a function that send near from your connected wallet to another specified near account.
 
 #### Building...
 
