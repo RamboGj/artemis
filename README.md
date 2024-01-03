@@ -57,7 +57,7 @@ The `useNearWallet` hook initializes a connection to the NEAR blockchain and pro
 #### Usage
 
 ```tsx
-const { isLoading, wallet } = useNearWallet();
+const { isLoading, wallet } = useNearWallet()
 ```
 
 #### API
@@ -81,7 +81,7 @@ const { onSignin } = useSignin({
   failureUrl,
   methodNames,
   successUrl,
-});
+})
 ```
 
 #### API
@@ -103,7 +103,7 @@ The `useSignout` hook returns a function that sign out your connected wallet.
 #### Usage
 
 ```tsx
-const { onSignout } = useSignout();
+const { onSignout } = useSignout()
 ```
 
 #### API
@@ -131,7 +131,7 @@ The `useInventory` hook returns all FTs and NFTs data from a near wallet.
 #### Usage
 
 ```tsx
-const { inventory, isLoading } = useInventory("accountId.testnet");
+const { inventory, isLoading } = useInventory("accountId.testnet")
 ```
 
 #### API
@@ -150,7 +150,7 @@ The `useAccount` hook returns all data from a near blockchain account.
 #### Usage
 
 ```tsx
-const { account, isLoading } = useAccount("accountId.testnet");
+const { account, isLoading } = useAccount("accountId.testnet")
 ```
 
 #### API
@@ -171,7 +171,7 @@ The `parseYocto` converts NEAR Token amount to YoctoNEAR and return its value.
 #### Usage
 
 ```tsx
-const yoctoNearAmount = parseYocto("1");
+const yoctoNearAmount = parseYocto("1")
 ```
 
 #### API
@@ -189,7 +189,7 @@ The `parseNear` converts YoctoNEAR Token amount to NEAR and return its value.
 #### Usage
 
 ```tsx
-const nearAmount = parseNear("1000000000000000000000000");
+const nearAmount = parseNear("1000000000000000000000000")
 ```
 
 #### API
