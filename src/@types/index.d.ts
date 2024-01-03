@@ -141,6 +141,30 @@ declare module 'artemis-sdk' {
    * @returns The send function.
    */
 
+  export function useContractRead(contractId: string) /**
+   * Hook that returns the account's inventory state and a loading state while the call is being maden.
+   *
+   *
+   * @example
+   * ```tsx
+   * import { useSend } from "artemis-sdk"
+   *
+   * export function App() {
+   *  const { onSend } = useSend({ receiverAccountId, amountYoctoNear, contractId, failureUrl, methodNames, successUrl })
+   * }
+   *
+   * ```
+   *
+   * @param receiverAccountId - The Near Account ID you wanna send funds to.
+   * @param amountYoctoNear - The Amount of Near(in YoctoNear) you wanna send to the receiver.
+   * @param contractId - The Near Contract ID you wanna interact with.
+   * @param failureUrl - The URL user will be redirect if the sign in goes wrong. (optional)
+   * @param successUrl - The URL user will be redirect if the sign in works correctly. (optional)
+   * @param methodNames - The methods from the Near Contract. (optional)
+   *
+   * @returns The send function.
+   */
+
   export function parseYocto(nearAmount: string): string
   /**
    * Utility function that converts near to yocto near.

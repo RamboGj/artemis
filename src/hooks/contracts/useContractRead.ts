@@ -1,34 +1,41 @@
-// import { onGetNearWalletConnection } from '@/utils/functions'
-// import { Contract } from 'near-api-js'
+import { NEAR_BLOCK_EXPLORER_BASE_URL } from '@/utils/constants'
+import { useNearWallet } from '../accounts/useNearWallet'
+import { useEffect } from 'react'
+import { decode } from '@webassemblyjs/wasm-parser'
+import { parseContract } from '@/utils/decoder'
 
-// interface useContractViewProps {
-//   methods: string[]
-//   contractId: string
-// }
+export function useContractRead(contractId: string) {
+  const { wallet, isLoading } = useNearWallet()
 
-// export function useContractView({
-//   contractId,
-//   methods,
-// }: useContractViewProps): [() => void] {
-//   async function onGetContractRead() {
-//     const wallet = await onGetNearWalletConnection()
+  async function onFetchContract() {
+    if (typeof wallet === 'undefined' || isLoading) return
 
-//     const contract = new Contract(wallet.account(), contractId, {
-//       viewMethods: methods,
-//     } as any)
+    try {
+      const response = await fetch(
+        `${NEAR_BLOCK_EXPLORER_BASE_URL}/account/${contractId}/contract`,
+      )
 
-//     const methodsReturn = []
+      console.log('response', response)
 
-//     for (let i = 0; i < methods.length; i++) {
-//       methodsReturn.push(contract?.methods[i] as any)
-//     }
+      const data = await response.json()
 
-//     await contract.methodName()
-//   }
+      console.log('data', data)
 
-//   return null
-// }
+      const base64EncodedString = data.contract[0].code_base64
+      console.log('base64EncodedString', base64EncodedString)
 
-export function useContractRead() {
+      const contractMetadata = parseContract(base64EncodedString)
+
+      console.log('decodedStuff', contractMetadata)
+    } catch (err) {
+      console.log('err', err)
+      return err
+    }
+  }
+
+  useEffect(() => {
+    onFetchContract()
+  }, [wallet])
+
   return null
 }

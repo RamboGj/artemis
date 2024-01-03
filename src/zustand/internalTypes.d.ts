@@ -4,6 +4,7 @@
 
 import type { InventoryProps } from '@/@types/accounts'
 import type { AccountProps } from '@/@types/explorer'
+import type { WalletConnection } from 'near-api-js'
 
 export interface useZustandNearWalletProps {
   wallet: WalletConnection | undefined

@@ -4,6 +4,8 @@ export * from './hooks/accounts/useNearWallet'
 export * from './hooks/accounts/useSignin'
 export * from './hooks/accounts/useSignout'
 
+export * from './hooks/contracts/useContractRead'
+
 export * from './hooks/explorer/useAccount'
 export * from './hooks/explorer/useInventory'
 
